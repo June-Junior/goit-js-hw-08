@@ -74,14 +74,16 @@ imagesArrHtmlContainer.insertAdjacentHTML('afterbegin', imagesGalleryJoined);
 
 imagesArrHtmlContainer.addEventListener('click', onImagesContainerClick);
 
-const modalDefaultBackdropEl = document.querySelector('.js-lightbox');
+const modalDefaultImageEl = document.querySelector('.js-lightbox');
 const imageBigModalEl = document.querySelector('.lightbox__image');
 
 const modalCloseButton = document.querySelector('.lightbox__button');
 modalCloseButton.addEventListener('click', onModalClosingClick);
 
 const modalCloseBackdropClick = document.querySelector('.lightbox__overlay');
-modalCloseBackdropClick.addEventListener('click', onModalBackdropClick);
+modalCloseBackdropClick.addEventListener('click', onModalClosingClick);
+
+window.addEventListener('keydown', onEscBtnPress);
 
 function createImageGalleryItem(images) {
     return images.map(({original, preview, description}) => {
@@ -114,27 +116,26 @@ function onImagesContainerClick (event) {
 
   console.log(event.target.dataset.source);
 
-  function onModalAppearance () {
-    modalDefaultBackdropEl.classList.add('is-open');
-    imageBigModalEl.src = event.target.dataset.source;
-  }
-  onModalAppearance();
+  modalDefaultImageEl.classList.add('is-open');
+  imageBigModalEl.src = event.target.dataset.source;
+  
 }
 
 function onModalClosingClick (event) {
   console.log(event.target);
-  modalDefaultBackdropEl.classList.remove('is-open');
+  modalDefaultImageEl.classList.remove('is-open');
   imageBigModalEl.src = " ";
   console.log(imageBigModalEl.src);
 }
 
-function onModalBackdropClick (event) {
-  console.log(event.target);
-  modalDefaultBackdropEl.classList.remove('is-open');
-  imageBigModalEl.src = " ";
+function onEscBtnPress (event) {
+  console.log(event);
+
+  if (event.code === "Escape") {
+    modalDefaultImageEl.classList.remove('is-open');
+    imageBigModalEl.src = " ";
+  }
 }
-
-
 // function onModalAppearance () {
 //   modalDefaultBackdropEl.classList.add('is-open');
 //   imageBigModalEl.src = event.target.dataset.source;
