@@ -131,10 +131,11 @@ function onModalClosingClick (event) {
 function onEscBtnPress (event) {
   console.log(event);
 
-  if (event.code === "Escape") {
-    modalDefaultImageEl.classList.remove('is-open');
-    imageBigModalEl.src = " ";
+  if (event.code !== "Escape") {
+    return;
   }
+  modalDefaultImageEl.classList.remove('is-open');
+  imageBigModalEl.src = " ";
 }
 // function onModalAppearance () {
 //   modalDefaultBackdropEl.classList.add('is-open');
