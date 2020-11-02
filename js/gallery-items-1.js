@@ -72,17 +72,6 @@ const imagesGalleryJoined = createImageGalleryItem(defaultImageArr);
 
 imagesArrHtmlContainer.insertAdjacentHTML('afterbegin', imagesGalleryJoined);
 
-imagesArrHtmlContainer.addEventListener('click', onImagesContainerClick);
-
-const modalDefaultBackdropEl = document.querySelector('.js-lightbox');
-const imageBigModalEl = document.querySelector('.lightbox__image');
-
-const modalCloseButton = document.querySelector('.lightbox__button');
-modalCloseButton.addEventListener('click', onModalClosingClick);
-
-const modalCloseBackdropClick = document.querySelector('.lightbox__overlay');
-modalCloseBackdropClick.addEventListener('click', onModalBackdropClick);
-
 function createImageGalleryItem(images) {
     return images.map(({original, preview, description}) => {
         return `
@@ -103,39 +92,3 @@ function createImageGalleryItem(images) {
     .join('');
 }
 
-function onImagesContainerClick (event) {
-  event.preventDefault();
-  console.log(event.target);
-
-  if(!event.target.classList.contains('gallery__image')) {
-    return;
-  }
-  console.log(event.target);
-
-  console.log(event.target.dataset.source);
-
-  function onModalAppearance () {
-    modalDefaultBackdropEl.classList.add('is-open');
-    imageBigModalEl.src = event.target.dataset.source;
-  }
-  onModalAppearance();
-}
-
-function onModalClosingClick (event) {
-  console.log(event.target);
-  modalDefaultBackdropEl.classList.remove('is-open');
-  imageBigModalEl.src = " ";
-  console.log(imageBigModalEl.src);
-}
-
-function onModalBackdropClick (event) {
-  console.log(event.target);
-  modalDefaultBackdropEl.classList.remove('is-open');
-  imageBigModalEl.src = " ";
-}
-
-
-// function onModalAppearance () {
-//   modalDefaultBackdropEl.classList.add('is-open');
-//   imageBigModalEl.src = event.target.dataset.source;
-// }
